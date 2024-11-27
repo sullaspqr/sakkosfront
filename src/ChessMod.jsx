@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 
 export const ChessMod = () => {
     const params = useParams();
@@ -14,10 +15,16 @@ export const ChessMod = () => {
 });
 
     useEffect(() => {
-        fetch('https://chess.sulla.hu/chess/' + id)
-         .then((valasz) => valasz.json())
-         .then((sakkos) => setChess(sakkos))
-         .catch((hiba) => console.log(hiba))
+        const fetchChess = async () => {
+            try { 
+                const valasz = await axios.get("https://chess.sulla.hu/chess/" + id);
+                setChess(valasz.data);
+            }
+            catch (error) {
+                console.log("Hiba a lekérdezésben: ", error);
+            }
+        }   
+        fetchChess();
     }, [id]);
 
 const handleInputChange = event => {
@@ -54,7 +61,7 @@ return (
     <div className="p-5 m-auto text-center content bg-lavender">
             <div>
                 <h2>Egy sakkozó módosítása</h2>
-                    <div className="card col-sm3 d-inline-block m-1 p-2">
+                    <div className="card col-sm3 m-1 p-2">
                         <form onSubmit={handleSubmit}>
                             <div className="form-group row pb-3">
                                 <label className="col-sm-3 col-form-label">Sakkozó neve:</label>
@@ -84,11 +91,13 @@ return (
                                 <label className="col-sm-3 col-form-label">Kép URL:</label>
                                 <div className="col-sm-9">
                                     <input type="text" name="image_url" className="form-control" defaultValue={chess.image_url} onChange={handleInputChange} />
-                                    <img src={chess.image_url} height="200px" alt={chess.name} />
+                                    <img src={chess.image_url} height="200px" alt={chess.name} className="justify-content-center" />
                                 </div>
                             </div>
-                            <button type="submit" className="btn btn-success">Küldés</button>
+                            <Link to="/" className="bi bi-backspace-fill fs-5 btn btn-danger"> Vissza</Link>&nbsp;&nbsp;&nbsp;
+                            <button type="submit" className="bi bi-send btn btn-success fs-5"> Küldés</button>
                         </form>
+                        <div></div>
                         </div>
                     </div>
                 </div>

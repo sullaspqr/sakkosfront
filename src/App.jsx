@@ -3,6 +3,8 @@ import './App.css';
 import { ChessList } from './ChessList';
 import { ChessSingle } from './ChessSingle';
 import { ChessMod } from './ChessMod';
+import { ChessCreate} from './ChessCreate';
+import { ChessDel} from './ChessDel';
 
 export const App=()=> {
   return (
@@ -13,6 +15,9 @@ export const App=()=> {
             <li className="nav-item">
               <NavLink className="nav-link" to="/">Sakkozók</NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/chess-create">Új sakkozó</NavLink>
+            </li>
           </ul>
         </div>
       </nav>
@@ -20,6 +25,8 @@ export const App=()=> {
         <Route path="/" element={<ChessList />} />
         <Route path="/chess/:chessId" element={<ChessSingle />} />
         <Route path="/chess-mod/:chessId" element={<ChessMod />} />
+        <Route path="/chess-create" element={<ChessCreate />} />
+        <Route path="/chess-del/:chessId" element={<ChessDel />} />
       </Routes>
     </Router>
   );

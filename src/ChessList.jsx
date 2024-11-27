@@ -15,26 +15,32 @@ export const ChessList = () => {
     }, []);
 
     return (
-        <div className="p-5 m-auto text-center content bg-ivory">
+        <div className="container mt-5">
+            <h2 className="text-center">Sakkozók</h2>
             {isFetchPending ? (
                 <div className="spinner-border"></div>
             ) : (
-                <div>
-                    <h2>Sakkozók</h2>
+                <div className="row row-cols-1 row-cols-md-3 g-2">
                     {chesses.map((chess, index)=> (
-                        <div className="card col-sm3 d-inline-block m-1 p-2" key={index}>
-                            <p className="text-dark">Sakkozó neve: {chess.name}</p>
-                            <p className="text-danger">Születési éve: {chess.birth_date}</p>
-                            <p className="text-danger">Megnyert világbajnokságai: {chess.world_ch_won}</p>
-                            <div className="card-body">
+                        <div className="col" key={index}>
+                            <div className="card h-100">
+                            <div className="text-dark text-center"><b>Sakkozó neve:<br /> {chess.name}</b></div>
+                            <div className="text-danger text-center">Születési éve: {chess.birth_date}</div>
+                            <div className="text-danger text-center">Megnyert világbajnokságai: {chess.world_ch_won}</div>
+                            <div className="card-body d-flex flex-column align-items-center">
                                 
-                                <Link to={chess.profile_url}>Profil link</Link><br/>
+                                <Link to={chess.profile_url} className="fs-6  btn btn-success" target="_blank">Profil link</Link><br/>
                                <Link key="x" to={"/chess/" + chess.id}>
                                <img src={chess.image_url ? chess.image_url : "https://via.placeholder.com/400x800"} 
-                               alt={chess.name} className="img fluid" style={{width: "200"}} />
+                               alt={chess.name} className="img-fluid" style={{width: "200px"}} />
                                </Link><br/>
                             </div>
-                            <Link to={"/chess-mod/" + chess.id}><i className="bi bi-pencil-square"></i></Link>
+                            <div className="text-center">
+                            <Link to={"/chess/" + chess.id}><i className="bi bi-text-paragraph fs-6 btn btn-primary"></i></Link>&nbsp;&nbsp;&nbsp;
+                            <Link to={"/chess-mod/" + chess.id}><i className="bi bi-pencil-square fs-6 btn btn-warning"></i></Link>&nbsp;&nbsp;&nbsp;
+                            <Link to={"/chess-del/" + chess.id}><i className="bi bi-trash3 fs-6 btn btn-danger"></i></Link><br /><br />
+                            </div>
+                        </div>
                         </div>
                     ))}
                     </div>
