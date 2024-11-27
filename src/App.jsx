@@ -1,4 +1,4 @@
-import { HashRouter as Router, NavLink, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, NavLink, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { ChessList } from './ChessList';
 import { ChessSingle } from './ChessSingle';
